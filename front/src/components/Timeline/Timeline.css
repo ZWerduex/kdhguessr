@@ -1,0 +1,123 @@
+.timeline-wrapper {
+  margin-top: 20px;
+  width: 80%;
+}
+
+.timeline-container {
+  width: 100%; /* 👈 plus large que la timeline */
+  padding: 0 40px; /* 👈 espace gauche/droite */
+
+  --timeline-gradient: linear-gradient(
+    90deg,
+    rgba(104, 182, 237, 1) 0%,
+    rgba(232, 225, 158, 1) 50%,
+    rgba(243, 70, 252, 1) 100%
+  );
+
+  background: var(--timeline-gradient);
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
+
+.timeline {
+  width: 90%;
+  height: 60px;
+
+  background: transparent; /* 👈 important */
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  cursor: pointer;
+}
+
+.timeline:active {
+  cursor: grabbing;
+}
+
+.timeline-hitbox {
+  width: 700px;
+  height: 80px; /* zone cliquable plus grande */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+/* graduations */
+.tick {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+}
+
+.small {
+  height: 10px;
+  background: white;
+}
+
+.medium {
+  height: 20px;
+  background: white;
+}
+
+.tick.large {
+  height: 0; /* plus de ligne centrale */
+}
+
+.tick-top,
+.tick-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: white;
+}
+
+.tick-top {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(50% + 8px); /* 👈 espace au centre */
+  height: 18px;
+  width: 2px;
+  background: white;
+}
+
+.tick-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(50% + 8px); /* 👈 même espace */
+  height: 18px;
+  width: 2px;
+  background: white;
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  left: var(--x);
+
+  color: black;
+  font-size: 15px;
+  white-space: nowrap;
+}
+/* curseur */
+.marker {
+  position: absolute;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: red;
+  transform: translateX(-50%);
+}

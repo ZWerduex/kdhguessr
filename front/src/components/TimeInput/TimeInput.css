@@ -1,0 +1,65 @@
+.time-input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 2%;
+  width: 320px;
+  height: 50px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(104, 182, 237, 1) 0%,
+    rgba(232, 225, 158, 1) 50%,
+    rgba(243, 70, 252, 1) 100%
+  );
+
+  overflow: hidden;
+}
+
+.time-input {
+  flex: 1;
+  height: 100%;
+
+
+  user-select: text;
+  pointer-events: auto;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+  color: white;
+
+  padding: 0 12px;
+  font-size: 16px;
+
+  font-family: monospace;
+}
+
+.separator {
+  width: 2px;
+  height: 60%;
+
+  background: white;
+
+  opacity: 0.9;
+}
+
+.validate-btn {
+  width: 80px;
+  height: 100%;
+
+  border: none;
+  background: transparent;
+
+  color: white;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.validate-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}

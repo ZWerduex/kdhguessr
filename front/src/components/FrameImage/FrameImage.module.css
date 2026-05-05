@@ -1,0 +1,86 @@
+.image-box {
+  position: relative;
+  display: inline-block;
+  border-radius: 12px;
+  z-index: 0;
+  --neon-speed: 8s;
+}
+
+/* image */
+.image-box img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* glow coloré large */
+.image-box::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 20px;
+
+  background: linear-gradient(
+    45deg,
+    rgba(104, 182, 237, 1),
+    rgba(243, 70, 252, 1),
+    rgba(232, 225, 158, 1),
+    rgba(104, 182, 237, 1),
+    rgba(104, 182, 237, 1)
+  );
+
+  background-size: 200% 200%;
+
+  filter: blur(20px);
+  opacity: 0.3;
+
+  z-index: 0;
+  will-change: background-position;
+  background-repeat: no-repeat;
+  animation: neonMove var(--neon-speed) ease-in-out infinite alternate;
+}
+
+/* bordure néon (le tube) */
+.image-box::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+
+  background:
+    /* ligne blanche centrale */
+    linear-gradient(white, white) padding-box,
+
+    /* couche colorée */
+    linear-gradient(
+      45deg,
+      rgba(104, 182, 237, 1),
+      rgba(243, 70, 252, 1),
+      rgba(232, 225, 158, 1),
+      rgba(104, 182, 237, 1),
+      rgba(104, 182, 237, 1)
+    ) border-box;
+
+  border: 2px solid transparent;
+
+  background-size: 200% 200%;
+  background-clip: padding-box, border-box;
+  background-repeat: no-repeat;
+  will-change: background-position;
+  z-index: 1;
+
+  animation: neonMove var(--neon-speed) ease-in-out infinite alternate;
+}
+
+/* animation du gradient */
+@keyframes neonMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
