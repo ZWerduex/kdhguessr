@@ -1,4 +1,4 @@
-K-Pop Demon Hunters.mkv
+*.mkv
+*.mp4
 
-# Directory for extracted frames
-frames
+*.jpg
