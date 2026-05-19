@@ -7,14 +7,25 @@ env = dotenv.dotenv_values('.env')
 assert env['FLASK_SESSION_SECRET_KEY'], 'FLASK_SESSION_SECRET_KEY must be set in .env file'
 app.secret_key = env['FLASK_SESSION_SECRET_KEY'].encode('utf-8')
 
-# HOME PAGE
+# HOME
 @app.route('/')
 def home():
     if 'user' not in flask.session:
         return flask.redirect(flask.url_for('login'))
-    return f'Hello, {flask.session["user"]}! Welcome to the home page. <a href="/logout">Logout</a>'
+    user = flask.session['user']
+    return '''
+        <h1>Welcome, {}!</h1>
+        <a href="/logout">Logout</a>
+        <form method="post" action="/create">
+        <button type="submit">Create room</button>
+        </form>
+        <form method="post" action="/join">
+        <input type="text" name="room_code" placeholder="Room Code" required/>
+        <button type="submit">Join room</button>
+        </form>
+    '''.format(user)
 
-# LOGIN PAGE
+# LOGIN
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'user' in flask.session:
