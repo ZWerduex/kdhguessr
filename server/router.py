@@ -1,5 +1,8 @@
 import flask, dotenv
 
+from database import SQLite3Database
+from session_manager import SessionManager
+
 app = flask.Flask(__name__)
 
 # Load the secret key from the .env file and set it for the Flask app
@@ -7,12 +10,14 @@ env = dotenv.dotenv_values('.env')
 assert env['FLASK_SESSION_SECRET_KEY'], 'FLASK_SESSION_SECRET_KEY must be set in .env file'
 app.secret_key = env['FLASK_SESSION_SECRET_KEY'].encode('utf-8')
 
+sm = SessionManager(SQLite3Database())
+
 # HOME
 @app.route('/')
 def home():
-    if 'user' not in flask.session:
+    if not sm.is_logged_in():
         return flask.redirect(flask.url_for('login'))
-    user = flask.session['user']
+    user = sm.user()
     return '''
         <h1>Welcome, {}!</h1>
         <a href="/logout">Logout</a>
@@ -28,15 +33,17 @@ def home():
 # LOGIN
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if 'user' in flask.session:
+    if sm.is_logged_in():
         return flask.redirect(flask.url_for('home'))
     if flask.request.method == 'POST':
         username = flask.request.form['username']
-        flask.session['user'] = username
+        password = flask.request.form['password']
+        sm.login(username, password)
         return flask.redirect(flask.url_for('home'))
     return '''
         <form method="post" action="/login">
         <input type="text" name="username" placeholder="Username" required/>
+        <input type="password" name="password" placeholder="Password" required/>
         <button type="submit">Login</button>
         </form>
     '''
@@ -44,6 +51,5 @@ def login():
 # LOGOUT
 @app.route('/logout')
 def logout():
-    if 'user' in flask.session:
-        flask.session.pop('user')
+    sm.logout()
     return flask.redirect(flask.url_for('login'))

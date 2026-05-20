@@ -1,7 +1,7 @@
 
 create table if not exists players (
     name text primary key,
-    password text not null
+    password blob not null
 ) without rowid;
 
 create table if not exists rounds (

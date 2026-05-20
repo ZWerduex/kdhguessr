@@ -1,6 +1,6 @@
 import enum
 
-from .database import Database
+from database import Database
 
 class RoomManager:
     class RoomState(enum.Enum):

@@ -4,6 +4,9 @@ import dotenv
 
 env = dotenv.dotenv_values('.env')
 
+QUERIES_DIR = 'QUERIES_DIR'
+KDH_SQLITE3_DATABASE = 'KDH_SQLITE3_DATABASE'
+
 class Database:
     """Abstract base class for database interfaces
     """
@@ -11,8 +14,8 @@ class Database:
     def __init__(self):
         """Requires QUERIES_DIR variable set to the path to the queries directory in .env file
         """
-        assert env['QUERIES_DIR'], 'QUERIES_DIR must be set in .env file'
-        self.queries_dir: str = env['QUERIES_DIR'] # type: ignore
+        assert env[QUERIES_DIR], f'{QUERIES_DIR} must be set in .env file'
+        self.queries_dir: str = env[QUERIES_DIR] # type: ignore
 
     def get_query(self, query_name: str) -> str:
         """Returns the content of a query found in queries directory
@@ -63,11 +66,11 @@ class SQLite3Database(Database):
     """
 
     def __init__(self):
-        """Requires KDH_DATABASE variable set in .env file to the path of the SQLite3 database file.
+        """Requires KDH_SQLITE3_DATABASE variable set in .env file to the path of the SQLite3 database file.
         """
         super().__init__()
-        assert env['KDH_DATABASE'], 'KDH_DATABASE must be set in .env file'
-        self.path: str = env['KDH_DATABASE'] # type: ignore
+        assert env[KDH_SQLITE3_DATABASE], f'{KDH_SQLITE3_DATABASE} must be set in .env file'
+        self.path: str = env[KDH_SQLITE3_DATABASE] # type: ignore
  
     def select(self,
         query_name: str,
