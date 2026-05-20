@@ -1,19 +1,19 @@
 
-create table players (
+create table if not exists players (
     name text primary key,
     password text not null
 ) without rowid;
 
-create table rounds (
+create table if not exists rounds (
     id integer primary key,
     timestamp integer not null
 );
 
-create table rooms (
+create table if not exists rooms (
     id integer primary key
 );
 
-create table room_rounds (
+create table if not exists room_rounds (
     room_id integer not null,
     round_id integer not null,
     foreign key (room_id) references rooms(id),
@@ -21,7 +21,7 @@ create table room_rounds (
     primary key (room_id, round_id)
 );
 
-create table round_results (
+create table if not exists round_results (
     player_name text not null,
     round_id integer not null,
     guess integer not null,

@@ -1,0 +1,1 @@
+select name, password from players where name = :player_name;

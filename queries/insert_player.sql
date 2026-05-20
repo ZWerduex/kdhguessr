@@ -1,0 +1,1 @@
+insert into players (name, password) values (:player_name, :password);
